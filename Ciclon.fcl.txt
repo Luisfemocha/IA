@@ -50,7 +50,7 @@ RULEBLOCK No1
                 THEN danos IS catastroficos; 
     RULE 3 : IF poblacion IS grande AND velocidad IS lento 
                 THEN danos IS minimos ;
-    RULE 4 : IF velocidad IS lento  
+    RULE 4 : IF velocidad IS lento AND poblacion IS media  
                 THEN danos IS minimos;
     RULE 5 : IF velocidad IS lento AND poblacion IS baja
                 THEN danos IS minimos;
