@@ -6,9 +6,9 @@ import net.sourceforge.jFuzzyLogic.rule.Rule;
 
 public class LogicaDifusa {
 	
-	final static double poblacion = 18;
-	final static double proximidad_mar = 6;
-	final static double velocidad = 29;
+	final static double poblacion = 1.392503;
+	final static double proximidad_mar = 0;
+	final static double velocidad = 162;
 	
 	public static void main (String[] args) throws Exception {
 		
