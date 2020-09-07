@@ -1,0 +1,46 @@
+[System]
+Name='FIS_Ciclon'
+Type='mamdani'
+Version=2.0
+NumInputs=3
+NumOutputs=1
+NumRules=0
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='poblacion'
+Range=[0 1200]
+NumMFs=3
+MF1='baja':'trapmf',[-540 -60 0 150]
+MF2='media':'trapmf',[110 300 640 840]
+MF3='grande':'trapmf',[790 1000 1200 1300]
+
+[Input2]
+Name='aproximidad_mar'
+Range=[0 108]
+NumMFs=3
+MF1='cerca':'trapmf',[-48.6 -5.4 0 22]
+MF2='media':'trapmf',[18 35 48 74]
+MF3='lejos':'trapmf',[70 108 113.4 156.6]
+
+[Input3]
+Name='velocidad'
+Range=[0 250]
+NumMFs=3
+MF1='lento':'trapmf',[-112.5 -12.5 0 65]
+MF2='media':'trapmf',[58 118 152 178]
+MF3='alta':'trapmf',[160 210 250 362.5]
+
+[Output1]
+Name='daños'
+Range=[0 100]
+NumMFs=3
+MF1='minimos':'trapmf',[-45 -5 10 25]
+MF2='moderados':'trapmf',[20 32 44 55]
+MF3='catastroficos':'trapmf',[50 70 100 145]
+
+[Rules]

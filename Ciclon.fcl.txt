@@ -1,0 +1,80 @@
+FUNCTION_BLOCK ciclon
+
+
+VAR_INPUT
+    poblacion : REAL;
+    aproximidad_mar : REAL;
+    velocidad : REAL;
+END_VAR
+
+VAR_OUTPUT
+    danos : REAL;
+END_VAR
+
+FUZZIFY poblacion
+    TERM baja := (0,1) (150,0) ; 
+    TERM media := (110,0) (300,1) (640,1) (840,0) ;
+    TERM grande := (790,0) (1000,1) (1200,1) ;
+END_FUZZIFY
+
+FUZZIFY aproximidad_mar
+    TERM cerca := (0,1) (22,0) ;
+    TERM media := (18,0) (35,1) (48,1) (74,0) ;
+    TERM lejos := (70,0) (108,1);
+END_FUZZIFY
+
+FUZZIFY velocidad
+    TERM lento := (0,1) (65,0) ;
+    TERM medio := (58,0) (118,1) (152,1) (178,0);
+    TERM alta := (160,0) (210,1) (250,1);
+END_FUZZIFY
+
+DEFUZZIFY danos
+    TERM minimos := (0,1) (10,1) (25,0);
+    TERM moderados := (20,0) (32,1) (44,1) (55,0);
+    TERM catastroficos := (50,0) (70,1) (100,1);
+    METHOD : COG; 
+    DEFAULT := 0;
+END_DEFUZZIFY
+
+RULEBLOCK No1
+    // Use 'min' for 'and' (also implicit use 'max'
+    // for 'or' to fulfill DeMorgan's Law)
+    AND : MIN;
+    ACT : MIN;  // Use 'min' activation method
+    ACCU : MAX; // Use 'max' accumulation method
+
+    RULE 1 : IF velocidad IS alta AND aproximidad_mar IS cerca 
+                THEN danos IS catastroficos;
+    RULE 2 : IF velocidad IS alta AND poblacion IS grande AND aproximidad_mar IS cerca 
+                THEN danos IS catastroficos; 
+    RULE 3 : IF poblacion IS grande AND velocidad IS lento 
+                THEN danos IS minimos ;
+    RULE 4 : IF velocidad IS lento  
+                THEN danos IS minimos;
+    RULE 5 : IF velocidad IS lento AND poblacion IS baja
+                THEN danos IS minimos;
+    RULE 6 : IF velocidad IS lento AND aproximidad_mar IS lejos
+                THEN danos IS minimos;
+    RULE 7 : IF aproximidad_mar IS media AND velocidad IS lento
+                THEN danos IS minimos;
+    RULE 8 : IF poblacion IS media AND velocidad IS medio
+                THEN danos IS moderados;
+    RULE 9 : IF aproximidad_mar IS media AND velocidad IS medio
+                THEN danos IS moderados;
+    RULE 10 : IF poblacion IS media AND velocidad IS medio AND aproximidad_mar IS cerca
+                THEN danos IS moderados;
+    RULE 11 : IF velocidad IS alta 
+                THEN danos IS catastroficos;
+    RULE 12 : IF  poblacion IS baja AND aproximidad_mar IS lejos
+                THEN danos IS minimos;
+    RULE 13 : IF poblacion IS baja AND aproximidad_mar IS cerca
+                THEN danos IS moderados;
+    RULE 14 : IF aproximidad_mar IS lejos AND velocidad IS alta
+                THEN danos IS moderados;
+    RULE 15 : IF poblacion IS grande AND velocidad IS medio AND aproximidad_mar IS cerca
+                THEN danos IS catastroficos;
+
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
