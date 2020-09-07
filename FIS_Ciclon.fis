@@ -4,7 +4,7 @@ Type='mamdani'
 Version=2.0
 NumInputs=3
 NumOutputs=1
-NumRules=0
+NumRules=15
 AndMethod='min'
 OrMethod='max'
 ImpMethod='min'
@@ -13,27 +13,26 @@ DefuzzMethod='centroid'
 
 [Input1]
 Name='poblacion'
-Range=[0 1200]
+Range=[0 38]
 NumMFs=3
-MF1='baja':'trapmf',[-540 -60 0 150]
-MF2='media':'trapmf',[110 300 640 840]
-MF3='grande':'trapmf',[790 1000 1200 1300]
+MF1='baja':'trapmf',[-17.1 -1.9 0 10]
+MF2='media':'trapmf',[8 20 25 30]
+MF3='grande':'trapmf',[25 30 38 41.17]
 
 [Input2]
-Name='aproximidad_mar'
-Range=[0 108]
-NumMFs=3
-MF1='cerca':'trapmf',[-48.6 -5.4 0 22]
-MF2='media':'trapmf',[18 35 48 74]
-MF3='lejos':'trapmf',[70 108 113.4 156.6]
+Name='proximidad_mar'
+Range=[0 100]
+NumMFs=2
+MF1='cercana':'trapmf',[-90 -10 0 50]
+MF2='lejana':'trapmf',[30 80 100 190]
 
 [Input3]
 Name='velocidad'
-Range=[0 250]
+Range=[0 512]
 NumMFs=3
-MF1='lento':'trapmf',[-112.5 -12.5 0 65]
-MF2='media':'trapmf',[58 118 152 178]
-MF3='alta':'trapmf',[160 210 250 362.5]
+MF1='lenta':'trapmf',[-230.4 -25.6 0 180]
+MF2='media':'trapmf',[153 178 209 253]
+MF3='alta':'trapmf',[250 418 512 742.4]
 
 [Output1]
 Name='daños'
@@ -44,3 +43,18 @@ MF2='moderados':'trapmf',[20 32 44 55]
 MF3='catastroficos':'trapmf',[50 70 100 145]
 
 [Rules]
+0 1 3, 3 (1) : 1
+3 1 3, 3 (1) : 1
+3 0 1, 1 (1) : 1
+2 0 1, 1 (1) : 1
+1 0 1, 2 (1) : 1
+0 2 1, 1 (1) : 1
+0 1 1, 2 (1) : 1
+2 0 2, 2 (1) : 1
+0 2 2, 2 (1) : 1
+1 1 2, 3 (1) : 1
+0 0 3, 3 (1) : 1
+3 2 0, 1 (1) : 1
+1 1 0, 2 (1) : 1
+0 2 3, 3 (1) : 1
+1 1 2, 3 (1) : 1
