@@ -6,27 +6,27 @@ import net.sourceforge.jFuzzyLogic.rule.Rule;
 
 public class LogicaDifusa {
 	
-	final static double area = 18;
-	final static double personas = 6;
-	final static double temperatura = 29;
+	final static double poblacion = 18;
+	final static double proximidad_mar = 6;
+	final static double velocidad = 29;
 	
 	public static void main (String[] args) throws Exception {
 		
-		String file = "src/logicadifusa/FCL.fcl";
+		String file = "src/logicadifusa/FIS_Ciclon.fcl";
 		FIS fis = FIS.load(file, true);
 		
-		fis.setVariable("area", area);
-		fis.setVariable("personas", personas);
-		fis.setVariable("temperatura", temperatura);
+		fis.setVariable("poblacion", poblacion);
+		fis.setVariable("proximidad_mar", proximidad_mar);
+		fis.setVariable("velocidad", velocidad);
 		
 		fis.evaluate();
 		
-        JFuzzyChart.get().chart(fis.getFunctionBlock("potenciaAireAcondicionado"));
+        JFuzzyChart.get().chart(fis.getFunctionBlock("ciclon"));
 
-        double x = fis.getVariable("potencia").getLatestDefuzzifiedValue();
+        double x = fis.getVariable("danos").getLatestDefuzzifiedValue();
         System.err.println("Para los valores de salida el grado de pertenencia es: " + x);
         
-        for (Rule r : fis.getFunctionBlock("potenciaAireAcondicionado").getFuzzyRuleBlock("Bloque1").getRules()) {
+        for (Rule r : fis.getFunctionBlock("ciclon").getFuzzyRuleBlock("No1").getRules()) {
             System.out.println(r);
         }
 	}
