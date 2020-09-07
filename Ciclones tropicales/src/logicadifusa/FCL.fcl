@@ -1,0 +1,63 @@
+FUNCTION_BLOCK potenciaAireAcondicionado
+
+VAR_INPUT
+    area : REAL;
+    personas : REAL;
+    temperatura : REAL;
+END_VAR
+
+
+VAR_OUTPUT
+    potencia : REAL;
+END_VAR
+
+FUZZIFY area
+    TERM pequena := (0, 1) (10, 1) (20, 0); 
+    TERM mediana := (15, 0) (20,1) (30,1) (35,0);
+    TERM grande := (30, 0) (50, 1);
+END_FUZZIFY
+
+FUZZIFY personas
+    TERM pocas := (0, 1) (2, 1) (4,0);
+    TERM algunas := (3, 0) (6, 1) (9, 0);
+    TERM muchas := (8, 0) (10, 1) (12, 1);
+END_FUZZIFY
+
+FUZZIFY temperatura
+	TERM frio := (0, 1) (5, 1) (20, 0);
+	TERM templado := (18, 0) (23, 1) (28, 0);
+	TERM caliente := (26, 0) (30, 1) (40, 1);
+END_FUZZIFY
+
+DEFUZZIFY potencia
+    TERM baja := (0,0) (5,1) (10,0);
+    TERM media := (7,0) (15,1) (23,0);
+    TERM alta := (20,0) (25,1) (30,0);
+    
+    METHOD : COG;
+    
+    DEFAULT := 0;
+END_DEFUZZIFY
+
+RULEBLOCK Bloque1
+    // Use 'min' for 'and' (also implicit use 'max'
+    // for 'or' to fulfill DeMorgan's Law)
+    AND : MIN;
+    ACT : MIN;  // Use 'min' activation method
+    ACCU : MAX; // Use 'max' accumulation method
+
+    RULE 1 : IF area IS grande OR personas IS pocas
+                THEN potencia IS baja;
+    RULE 2 : IF temperatura IS templado AND area IS grande
+                THEN potencia IS baja; 
+    RULE 3 : IF personas IS algunas OR temperatura IS templado 
+                THEN potencia is media;
+   	RULE 4 : IF personas IS pocas AND area IS pequena
+   				THEN potencia IS media;
+   	RULE 5 : IF area IS pequena OR temperatura IS caliente
+   				THEN potencia IS alta;
+   	RULE 6 : IF personas IS algunas OR temperatura IS frio
+   				THEN potencia IS alta;
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
