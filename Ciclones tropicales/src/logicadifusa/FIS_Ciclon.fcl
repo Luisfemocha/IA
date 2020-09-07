@@ -11,10 +11,10 @@ VAR_OUTPUT
     danos : REAL;
 END_VAR
 
-FUZZIFY poblacion
-    TERM baja := (0,1) (150,0) ; 
-    TERM media := (110,0) (300,1) (640,1) (840,0) ;
-    TERM grande := (790,0) (1000,1) (1200,1) ;
+FUZZIFY poblacion // Valores tomados por millón
+    TERM baja := (0,1) (10,0) ; 
+    TERM media := (8,0) (20,1) (25,1) (30,0) ;
+    TERM grande := (25,0) (30,1) (38,1) ;
 END_FUZZIFY
 
 FUZZIFY proximidad_mar
