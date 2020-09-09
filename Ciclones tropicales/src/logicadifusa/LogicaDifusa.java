@@ -6,18 +6,18 @@ import net.sourceforge.jFuzzyLogic.rule.Rule;
 
 public class LogicaDifusa {
 	
-	final static double poblacion = 1.392503;
-	final static double proximidad_mar = 0;
-	final static double velocidad = 162;
+	static double poblacion = 1.392503;
+	static double proximidad_mar = 0;
+	static double velocidad = 162;
 	
-	public static void main (String[] args) throws Exception {
+	public static void main () throws Exception {
 		
 		String file = "src/logicadifusa/FIS_Ciclon.fcl";
 		FIS fis = FIS.load(file, true);
 		
-		fis.setVariable("poblacion", poblacion);
-		fis.setVariable("proximidad_mar", proximidad_mar);
-		fis.setVariable("velocidad", velocidad);
+		fis.setVariable("poblacion", Double.parseDouble(Interfaz.campo1.getText()));
+		fis.setVariable("proximidad_mar", Double.parseDouble(Interfaz.campo2.getText()));
+		fis.setVariable("velocidad", Double.parseDouble(Interfaz.campo3.getText()));
 		
 		fis.evaluate();
 		
